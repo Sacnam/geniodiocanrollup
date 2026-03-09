@@ -1,0 +1,415 @@
+<!-- FILE: src/reader/reader.html -->
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Articles - Reader</title>
+    <link rel="stylesheet" href="../libs/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="reader.css">
+    <style>
+        .article-card.unread-feed-article .card-title-actions-row h3::before,
+        .feed-item-card.unread .article-card-title::before {
+            content: '●';
+            color: #3498db;
+            font-size: 1em;
+            margin-right: 8px;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Stili per il menu contestuale dei feed */
+        .feed-context-menu {
+            display: none;
+            position: absolute;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color-strong);
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-card);
+            z-index: 210;
+            /* Sopra gli altri elementi della sidebar */
+            padding: 5px 0;
+            min-width: 120px;
+        }
+
+        .feed-context-menu.visible {
+            display: block;
+        }
+
+        .feed-context-menu button {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .feed-context-menu button:hover {
+            background-color: var(--active-filter-bg);
+            color: var(--active-filter-text);
+        }
+
+        .feed-context-menu button.delete:hover {
+            color: #E74C3C;
+        }
+
+        /* Stili per il modal di modifica feed */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease-in-out;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 24px;
+            border-radius: var(--border-radius-container);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 450px;
+            transform: scale(0.95);
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--text-title);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--text-color-muted);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color-strong);
+            border-radius: var(--border-radius-base);
+            background-color: var(--bg-search-bar);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 20%, transparent);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .modal-actions button {
+            padding: 9px 18px;
+            border-radius: var(--border-radius-base);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition-interactive);
+        }
+
+        .modal-actions .save-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .modal-actions .save-btn:hover {
+            background-color: var(--accent-hover-color);
+        }
+
+        .modal-actions .cancel-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color-strong);
+            color: var(--text-color);
+        }
+
+        .modal-actions .cancel-btn:hover {
+            background-color: var(--active-filter-bg);
+        }
+
+        .form-group.checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group.checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .form-group.checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <aside id="hamburger-menu" class="closed">
+            <div class="hamburger-menu-opened-content">
+                <div class="sidebar-header">
+                    <button class="icon-btn" id="sidebarHeaderHamburgerBtn" title="Toggle Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="nav-section main-pages-nav">
+                        <ul id="main-pages-list">
+                            <li data-filter-type="page" data-filter-value="homeAll" class="active-filter">
+                                <span>Home</span> <i class="fas fa-home"></i>
+                            </li>
+                            <!-- NUOVA SEZIONE LIBRI -->
+                            <li data-filter-type="page" data-filter-value="books">
+                                <span>My Books</span> <i class="fas fa-book-open"></i>
+                            </li>
+                            <li data-filter-type="page" data-filter-value="readLater">
+                                <span>Read Later</span> <i class="fas fa-bookmark"></i>
+                            </li>
+                            <li data-filter-type="page" data-filter-value="favorites">
+                                <span>Favorites</span> <i class="fas fa-star"></i>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-section feeds-nav-section">
+                        <button class="nav-section-toggle" id="feeds-section-toggle" aria-expanded="true"
+                            aria-controls="hamburger-feeds-list-wrapper">
+                            <i class="fas fa-chevron-down"></i>
+                            <span>FEEDS</span>
+                        </button>
+                        <div id="hamburger-feeds-list-wrapper" class="nav-section-content-wrapper">
+                            <ul id="hamburger-feeds-list" class="nav-section-content">
+                                <li class="empty-nav-item">No subscriptions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <div id="reader-main-content">
+            <div id="reader-content-wrapper" class="reading-pane-collapsed-wrapper">
+                <div id="main-column">
+                    <header id="main-header">
+                        <button class="icon-btn" id="mainHeaderHamburgerBtn" title="Toggle Menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="search-wrapper">
+                            <div class="search-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="search" id="searchInput" placeholder="Search items...">
+                            </div>
+                        </div>
+                        <div class="header-right-controls">
+                            <!-- NUOVO PULSANTE UPLOAD -->
+                            <input type="file" id="epub-upload" accept=".epub" style="display: none;">
+                            <button class="icon-btn" id="uploadBookBtn" title="Upload EPUB Book">
+                                <i class="fas fa-file-upload"></i>
+                            </button>
+                            <button class="icon-btn" id="manualRefreshBtn" title="Refresh Feeds">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button class="icon-btn" id="sortFilterButton" title="Sort">
+                                <i class="fas fa-filter"></i>
+                            </button>
+                            <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </div>
+                    </header>
+
+                    <header id="bulk-actions-toolbar">
+                        <span id="selection-count">0 selected</span>
+                        <div class="bulk-actions-buttons">
+                            <button class="icon-btn" id="bulk-select-all-btn" title="Select All">
+                                <i class="fas fa-check-double"></i>
+                            </button>
+                            <button class="icon-btn" id="bulk-read-later-btn" title="Add Selected to Read Later">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="icon-btn" id="bulk-favorite-btn" title="Favorite Selected">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <button class="icon-btn" id="bulk-delete-btn" title="Delete Selected">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                            <button class="icon-btn" id="bulk-deselect-btn" title="Exit Selection Mode">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </header>
+
+                    <main id="article-list-content">
+                        <div class="articles-container" id="articlesContainer">
+                        </div>
+                        <p class="empty-state-message" style="display:none;">No items to display.</p>
+                    </main>
+                </div>
+
+                <div id="resizer"></div>
+
+                <article id="reading-pane" class="collapsed">
+                    <div id="reading-pane-toolbars-container">
+                        <div class="toolbar">
+                            <button class="icon-btn" id="closeArticleBtn" title="Close View">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button class="icon-btn" id="toggleFullscreenReader" title="Fullscreen">
+                                <i class="fas fa-expand"></i>
+                            </button>
+
+                            <div class="toolbar-spacer"></div>
+
+                            <div id="ai-prompts-drawer" class="collapsed"></div>
+                            <button class="icon-btn" id="toggle-ai-prompts-btn" title="AI Tools">
+                                <i class="fas fa-magic"></i>
+                            </button>
+                            <div class="tts-menu-container">
+                                <button class="icon-btn" id="playSpeechBtn" title="Generate & Listen">
+                                    <i class="fas fa-headphones"></i>
+                                </button>
+                                <div class="tts-dropdown" id="ttsDropdown">
+                                    <div class="tts-group">
+                                        <label for="ttsVoiceSelect" title="Select Voice"><i
+                                                class="fas fa-theater-masks"></i></label>
+                                        <select id="ttsVoiceSelect" title="Select Voice"></select>
+                                    </div>
+                                    <div class="tts-group">
+                                        <button class="icon-btn tts-generate-btn" id="tts-generate-btn"
+                                            title="Generate Audio">
+                                            <i class="fas fa-cogs"></i>
+                                            <span>Generate</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="icon-btn" id="refreshArticleBtn" title="Refresh Article Content">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="reading-pane-left-toolbar">
+                        <div class="appearance-menu-container">
+                            <button class="icon-btn" id="toggleAppearanceMenuBtn" title="Appearance Settings">
+                                <i class="fas fa-font"></i>
+                            </button>
+                            <div class="appearance-dropdown" id="appearanceDropdown">
+                                <div class="appearance-group">
+                                    <button class="icon-btn appearance-item-btn" id="decreaseFontBtn"
+                                        title="Decrease Font"><i class="fas fa-font"
+                                            style="font-size: 0.8em;"></i>-</button>
+                                    <span id="currentFontSizeLabel"
+                                        class="toolbar-font-label appearance-item-label">16px</span>
+                                    <button class="icon-btn appearance-item-btn" id="increaseFontBtn"
+                                        title="Increase Font"><i class="fas fa-font"
+                                            style="font-size: 0.8em;"></i>+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toolbar-divider horizontal"></div>
+                        <button class="icon-btn" id="markAsFavoriteBtn" title="Add to Favorites">
+                            <i class="far fa-star"></i>
+                        </button>
+                        <button class="icon-btn" id="toggleReadLaterBtn" title="Add to Read Later">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                        <button class="icon-btn" id="deleteArticleReaderBtn" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="article-content-scroll-wrapper">
+                        <div class="article-header-container">
+                            <h2 id="articleViewTitle"></h2>
+                            <p class="original-url">
+                                <a id="articleViewLink" href="#" target="_blank" rel="noopener noreferrer">Read
+                                    Original</a>
+                                <span id="articleViewDate"></span>
+                                <span id="articleViewReadTime"></span>
+                            </p>
+                        </div>
+
+                        <div id="ai-generated-content"></div>
+
+                        <hr class="article-header-divider">
+                        <div class="article-body-container">
+                            <div id="articleContent"></div>
+                        </div>
+                    </div>
+
+                    <div id="tts-bottom-bar-container"></div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div id="editFeedModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Edit Feed</h3>
+            <form id="editFeedForm">
+                <input type="hidden" id="editFeedOriginalUrl">
+                <div class="form-group">
+                    <label for="editFeedName">Feed Name</label>
+                    <input type="text" id="editFeedName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editFeedUrlInput">Feed URL</label>
+                    <input type="url" id="editFeedUrlInput" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" id="cancelEditFeedBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </div>
+                <div class="delete-feed-section">
+                    <button type="button" class="delete-btn" id="deleteFeedBtn">Unsubscribe from this Feed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../libs/jszip.min.js"></script>
+    <script src="../libs/epub.js"></script>
+    <script src="reader.js" type="module"></script>
+</body>
+
+</html>

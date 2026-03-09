@@ -1,0 +1,83 @@
+{
+  "manifest_version": 3,
+  "name": "Genio Feed",
+  "version": "1.9.10",
+  "description": "Read-later, RSS Feeds & Ai Assistant",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "clipboardWrite",
+    "tabs",
+    "downloads",
+    "alarms",
+    "offscreen",
+    "scripting",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "icons": {
+    "16": "icons/logo67.png",
+    "48": "icons/logo67.png",
+    "128": "icons/logo67.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/logo67.png",
+      "48": "icons/logo67.png"
+    },
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "css/fonts.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "sidebar/*",
+        "reader/*",
+        "offscreen_parser.html",
+        "icons/*",
+        "icons/img/*",
+        "libs/*",
+        "libs/fontawesome/webfonts/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "externally_connectable": {
+    "matches": [
+      "https://genio-f9386.web.app/*"
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; media-src 'self' https://replicate.delivery; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;"
+  }
+}

@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------------
+# File e Cartelle da Ignorare - Progetto Genio Feed
+# -----------------------------------------------------------------------------
+
+# 1. Dipendenze di Node.js
+# Queste cartelle vengono generate da `npm install` e non devono mai essere
+# incluse nel repository.
+/node_modules/
+/functions/node_modules/
+
+# 2. Cartelle di Build e Pubbliche
+# Queste cartelle contengono il risultato del processo di build o file statici
+# che non sono il codice sorgente principale.
+/dist/
+/public/libs/
+/public/icons/
+
+# 4. Librerie di Terze Parti
+# Ignoriamo la cartella delle librerie copiate manualmente.
+/src/libs/
+
+# 5. File di Log e di Debug
+# Contengono informazioni temporanee e non sono parte del codice sorgente.
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+firebase-debug.log*
+firebase-debug.*.log
+
+# 6. Cache e File di Sistema
+.firebase/
+.vscode/
+.DS_Store
+Thumbs.db
+.eslintcache
+
+# 7. File di Ambiente
+# Contengono chiavi segrete e non devono mai essere condivisi.
+.env
+.env.*

@@ -1,0 +1,124 @@
+<!-- FILE: src/reader/book_viewer.html -->
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genio Reader</title>
+    <link rel="stylesheet" href="../libs/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="book_viewer.css">
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div id="topBar">
+        <div class="left-controls">
+            <button id="tocBtn" title="Indice"><i class="fas fa-list-ul"></i></button>
+            <h1 id="bookTitle">Caricamento...</h1>
+        </div>
+        <div class="right-controls">
+            <button id="settingsBtn" title="Impostazioni di Lettura"><i class="fas fa-font"></i></button>
+            <button id="fullscreenBtn" title="Schermo Intero"><i class="fas fa-expand"></i></button>
+            <button id="closeBookBtn" title="Chiudi"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="hidden">
+
+        <!-- Themes -->
+        <div class="setting-group">
+            <label>Tema</label>
+            <div class="theme-buttons">
+                <button class="theme-btn light" data-theme="light">Aa</button>
+                <button class="theme-btn sepia" data-theme="sepia">Aa</button>
+                <button class="theme-btn dark" data-theme="dark">Aa</button>
+            </div>
+        </div>
+
+        <!-- Font Size -->
+        <div class="setting-group">
+            <label>Dimensione Testo</label>
+            <div class="control-row">
+                <button id="decreaseFont"><i class="fas fa-minus"></i></button>
+                <span id="fontSizeDisplay">100%</span>
+                <button id="increaseFont"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
+        <!-- Font Family -->
+        <div class="setting-group">
+            <label>Tipo Carattere</label>
+            <select id="fontFamilySelect">
+                <option value="Helvetica, Arial, sans-serif">Sans-Serif (Helvetica)</option>
+                <option value="Georgia, Times New Roman, serif">Serif (Georgia)</option>
+                <option value="'Courier New', Courier, monospace">Monospace</option>
+                <option value="'Verdana', Geneva, sans-serif">Verdana</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet</option>
+            </select>
+        </div>
+
+        <!-- Layout Options -->
+        <div class="setting-group">
+            <label>Layout</label>
+            <div class="toggle-row">
+                <button class="mode-btn active" data-flow="paginated" title="Paginato (Libro)"><i
+                        class="fas fa-columns"></i></button>
+                <button class="mode-btn" data-flow="scrolled" title="Scorrimento (Web)"><i
+                        class="fas fa-scroll"></i></button>
+            </div>
+            <div class="checkbox-row" id="spreadControlRow">
+                <input type="checkbox" id="singlePageCheckbox">
+                <label for="singlePageCheckbox" style="display:inline; margin-left:8px; cursor:pointer;">Forza Pagina
+                    Singola</label>
+            </div>
+        </div>
+
+        <!-- Margins -->
+        <div class="setting-group">
+            <label>Margini Laterali</label>
+            <input type="range" id="marginSlider" min="0" max="20" value="10" step="1">
+        </div>
+    </div>
+
+    <!-- Sidebar TOC -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>Indice</h2>
+            <button id="closeSidebarBtn"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        <div id="tocContainer"></div>
+    </div>
+
+    <!-- Main Viewer Area -->
+    <div id="main">
+        <div id="prevArea" class="nav-area" title="Precedente"><i class="fas fa-chevron-left"></i></div>
+        <div id="viewer"></div>
+        <div id="nextArea" class="nav-area" title="Successivo"><i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div id="bottomBar">
+        <span id="chapterTitle">...</span>
+        <div class="progress-container">
+            <span id="currentPage">--</span> / <span id="totalPages">--</span>
+            <div class="progress-bar-bg">
+                <div id="progressBarFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="visible">
+        <div class="spinner"></div>
+        <p>Apertura Libro...</p>
+    </div>
+
+    <script src="../libs/jszip.min.js"></script>
+    <script src="../libs/epub.js"></script>
+    <script src="book_viewer.js" type="module"></script>
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genio - Gestione Feed</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="subscriptions.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header con Logo Animato -->
+        <header class="subscriptions-header">
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <img src="../icons/logo67.png" alt="Genio" class="logo-animated">
+                <div class="logo-particles">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <h1>I Tuoi Feed</h1>
+            <p class="subtitle">Gestisci le tue sorgenti di conoscenza</p>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-value" id="totalFeeds">0</span>
+                <span class="stat-label">Feed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="unreadCount">0</span>
+                <span class="stat-label">Da leggere</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="lastUpdate">--</span>
+                <span class="stat-label">Ultimo agg.</span>
+            </div>
+        </div>
+
+        <!-- Add Feed Section -->
+        <section class="add-feed-section">
+            <div class="input-group">
+                <input type="url" id="feedUrl" placeholder="https://esempio.com/feed.xml" class="feed-input">
+                <button id="addFeedBtn" class="btn-primary">
+                    <span class="btn-text">Aggiungi</span>
+                    <span class="btn-loader hidden">
+                        <span class="spinner"></span>
+                    </span>
+                </button>
+            </div>
+            <div id="addFeedError" class="error-message hidden"></div>
+        </section>
+
+        <!-- Feed List -->
+        <section class="feeds-section">
+            <div class="section-header">
+                <h2>I tuoi sottoscrizioni</h2>
+                <div class="actions">
+                    <button id="refreshAllBtn" class="btn-icon" title="Aggiorna tutti">
+                        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                        </svg>
+                    </button>
+                    <button id="importOpmlBtn" class="btn-icon" title="Importa OPML">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state hidden">
+                <div class="logo-pulse">
+                    <img src="../icons/logo67.png" alt="Loading" class="pulse-animation">
+                </div>
+                <p>Caricamento feed...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Nessun feed ancora</h3>
+                <p>Inizia aggiungendo il tuo primo feed RSS sopra, o importa un file OPML.</p>
+            </div>
+
+            <!-- Feed List Container -->
+            <div id="feedsList" class="feeds-list">
+                <!-- I feed verranno inseriti qui dinamicamente -->
+            </div>
+        </section>
+
+        <!-- Hidden file input for OPML import -->
+        <input type="file" id="opmlFileInput" accept=".opml,.xml" class="hidden">
+    </div>
+
+    <!-- Templates -->
+    <template id="feedItemTemplate">
+        <div class="feed-item" data-feed-url="">
+            <div class="feed-icon">
+                <img src="" alt="" class="feed-favicon">
+                <div class="feed-status"></div>
+            </div>
+            <div class="feed-info">
+                <h3 class="feed-title"></h3>
+                <p class="feed-url"></p>
+                <div class="feed-meta">
+                    <span class="feed-count"></span>
+                    <span class="feed-last-fetch"></span>
+                </div>
+            </div>
+            <div class="feed-actions">
+                <button class="btn-icon btn-refresh" title="Aggiorna">
+                    <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                    </svg>
+                </button>
+                <button class="btn-icon btn-delete" title="Elimina">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script type="module" src="subscriptions.js"></script>
+</body>
+</html>

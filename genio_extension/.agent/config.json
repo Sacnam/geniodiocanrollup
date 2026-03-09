@@ -1,0 +1,72 @@
+{
+    "project_name": "Antigravity_GodMode",
+    "description": "Autonomous coding environment with Antirez-level quality control.",
+    "//_MODE_SELECTOR": "OPTIONS: 'v1_eco', 'v3_safety', 'v4_god_mode'",
+    "active_mode": "v4_god_mode",
+    "token_budget_per_run": 500000,
+    "agents": {
+        "PRODUCT_OWNER": {
+            "role": "The Visionary (Steve Jobs Mode)",
+            "model": "gemini-3-pro",
+            "instructions": ".agent/instructions/product_owner.md",
+            "permissions": [
+                "read-all",
+                "write-file"
+            ]
+        },
+        "ARCHITECT": {
+            "role": "The Context Architect (Antirez Mode)",
+            "model": "gemini-3-pro",
+            "instructions": ".agent/instructions/architect.md",
+            "permissions": [
+                "read-all",
+                "plan-only"
+            ],
+            "capabilities": [
+                "pre-mortem",
+                "devil-advocate"
+            ]
+        },
+        "DEVELOPER": {
+            "role": "The Paranoid Artisan",
+            "model": "gemini-3-flash",
+            "instructions": ".agent/instructions/developer.md",
+            "permissions": [
+                "write-code",
+                "read-all"
+            ],
+            "capabilities": [
+                "arena-protocol",
+                "golden-style"
+            ]
+        },
+        "REVIEWER": {
+            "role": "The Inquisitor (Red Team)",
+            "model": "gemini-3-flash",
+            "instructions": ".agent/instructions/reviewer.md",
+            "permissions": [
+                "run-tests",
+                "browser-tool",
+                "reject-changes"
+            ],
+            "capabilities": [
+                "chaos-testing",
+                "hallucination-check"
+            ]
+        },
+        "OPERATOR": {
+            "role": "The SysAdmin & Timekeeper",
+            "model": "gemini-3-flash",
+            "instructions": ".agent/instructions/operator.md",
+            "permissions": [
+                "terminal-turbo",
+                "git-control",
+                "file-system"
+            ],
+            "capabilities": [
+                "sysadmin-check",
+                "ockham-razor"
+            ]
+        }
+    }
+}

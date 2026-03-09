@@ -1,0 +1,45 @@
+{
+    "workflow_name": "God_Tier_Atomic_Loop",
+    "steps": [
+        {
+            "step": 0,
+            "agent": "PRODUCT_OWNER",
+            "action": "Interview User -> Generate PRD.md. GATE: Wait for PRD completion."
+        },
+        {
+            "step": 1,
+            "agent": "ARCHITECT",
+            "action": "Read PRD.md. Enforce Scope (1 feature only). Create IMPLEMENTATION_PLAN.md & Pre-Mortem Report."
+        },
+        {
+            "step": 2,
+            "agent": "OPERATOR",
+            "action": "Create Local Git Checkpoint (Branch: feature/xxx)."
+        },
+        {
+            "step": 3,
+            "loop_type": "autonomous_retry",
+            "max_iterations": 5,
+            "agents": [
+                "DEVELOPER",
+                "REVIEWER"
+            ],
+            "condition": "Until REVIEWER returns 'PASS' (Score 100/100)."
+        },
+        {
+            "step": 4,
+            "agent": "OPERATOR",
+            "action": "Run SysAdmin Checks -> Run Ockham's Razor (Cleanup) -> Final Local Commit."
+        },
+        {
+            "step": 5,
+            "agent": "ARCHITECT",
+            "action": "Update LEARNING_LOG.md with technical insights."
+        },
+        {
+            "step": 6,
+            "agent": "OPERATOR",
+            "action": "EXECUTE CONTEXT BURN. Terminate Session."
+        }
+    ]
+}

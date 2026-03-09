@@ -1,0 +1,82 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Regole Stripe (MANTENUTE) ---
+    match /customers/{uid} {
+      allow read: if request.auth.uid == uid;
+      match /checkout_sessions/{id} {
+        allow read, write: if request.auth.uid == uid;
+      }
+      match /subscriptions/{id} {
+        allow read: if request.auth.uid == uid;
+      }
+      match /payments/{id} {
+        allow read: if request.auth.uid == uid;
+      }
+      allow write: if false;
+    }
+    match /products/{id} {
+      allow read: if true;
+      allow write: if false;
+      match /prices/{id} {
+        allow read: if true;
+        allow write: if false;
+      }
+      match /tax_rates/{id} {
+        allow read: if true;
+        allow write: if false;
+      }
+    }
+    match /configuration/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // --- Regole Chat (Gestite dall'estensione Gemini) ---
+    // FIX: Our new function will also write here. The rule already allows this.
+    match /chats/{chatId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // --- NUOVA COLLEZIONE PER TASK AI ARTICOLI ---
+    match /articleProcessingTasks/{taskId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if false; // Solo il backend può interagire
+    }
+    
+    // --- RIMOSSA: La collezione gemini-tasks non è più necessaria ---
+    // match /gemini-tasks/{taskId} { ... }
+
+    // --- Regole Utenti e Sottocollezioni ---
+    match /users/{userId} {
+      allow get: if request.auth != null && request.auth.uid == userId;
+      allow list: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+
+      match /transactions/{transactionId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if false;
+      }
+
+      match /customPrompts/{promptId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /savedArticles/{articleId} {
+        allow read, write, delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /feedSubscriptions/{subscriptionId} {
+        allow read, write, delete: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      match /dismissedFeedItems/{itemId} {
+      	allow read, write: if request.auth.uid == userId;
+      }
+    }
+  }
+}

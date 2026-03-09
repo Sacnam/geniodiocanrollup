@@ -1,0 +1,365 @@
+The Cognitive Operating System: Architectural Specifications for Genio in the Context of 2026 Technological Convergence
+
+The trajectory of information interaction has reached an inflection point in 2026, marking a decisive shift from the era of "Infobesity"—characterized by fragmented, passive consumption—to the era of "Cognitive Synthesis." The Genio project (conceptually maturing through iterations known as Mosaic and Nexus Reader) represents the crystallization of this shift: a platform designed not merely to display information but to compute truth, contextualize knowledge, and orchestrate human attention. This report provides an exhaustive technical and design specification for Genio, grounded in the prevailing UI/UX trends, cloud-first Rust architectures, and server-side Retrieval-Augmented Generation (RAG) algorithms of 2026.
+Part I: The Interface of Truth – UI/UX Paradigms in 2026
+
+The visual language of 2026 has transcended the flat, sterile minimalism that dominated the early 2020s. We have entered an era of "Tactile Maximalism" and "Main Character Energy," where digital interfaces are no longer passive windows but active, living environments that respond to user intent with high-fidelity feedback and deep contextual awareness. For a knowledge system like Genio, the interface serves a critical function: it must bridge the gap between the chaotic noise of the internet and the structured clarity of a personal knowledge graph.  
+
+1.1 Tactile Maximalism and Liquid Glass Esthetics
+
+The "Clean Design" aesthetic, often criticized for its "beige-on-white, soulless minimalism," has officially been retired. In its place, 2026 sees the rise of Tactile Maximalism, a trend often described as "squishy-uishy" or hyper-physical. Interfaces now utilize textures that appear responsive to touch—buttons that deform like jelly or chrome, and surfaces that reflect simulated light in real-time.  
+
+This is not merely decorative. In Genio, tactile feedback serves as a cognitive anchor. When a user interacts with a "Knowledge Node," the interface provides distinct visual and haptic feedback relative to the "weight" or reliability of that information. High-confidence data feels "solid" and immutable, rendered with sharp, glassy edges, while speculative or unverified information appears softer, malleable, or visually "porous."  
+
+Complementing this is the Liquid Glass trend, inspired by evolutions in Apple's design language and the broader spatial computing ecosystem. Unlike flat cards, Liquid Glass elements introduce depth, translucency, and motion, creating a sense of atmosphere. In the Genio "Stream" workspace, news items float in layers of varying opacity. The most relevant items—verified by the system’s "Truth-Layer"—rise to the top layer with high contrast, while debunked or irrelevant noise recedes into the background, blurred by the "frosted glass" effect. This layering leverages the z-axis to communicate information hierarchy intuitively, reducing the cognitive load of filtering content manually.  
+
+1.2 The Bento Grid 2.0: Modular Information Architecture
+
+The organization of complex data in 2026 relies heavily on the Bento Grid 2.0. Originating from Apple's promotional materials, this layout strategy has matured into a functional standard for productivity applications. It organizes content into sleek, rounded rectangular tiles that function as self-contained interactive units.  
+
+For Genio, the Bento Grid solves the "dashboard fatigue" problem. Instead of a linear feed or a chaotic scattering of windows, the "Library" and "Stream" views are composed of bento tiles that fluidly reshuffle based on the device screen size and user context.  
+
+Feature	Implementation in Genio	User Benefit
+Responsiveness	
+
+Tiles restack from multi-column (Desktop) to vertical stack (Mobile) without losing internal layout integrity.
+	Seamless transition between deep work on a monitor and quick triage on a phone.
+Hierarchy	
+
+The largest tile is dynamically assigned to the "Daily Brief" or the active research topic.
+	Directs focus immediately to the most high-value information.
+Interactivity	
+
+Each tile supports internal micro-interactions (scroll, flip, expand) without opening a new page.
+	Allows "peeking" at data (e.g., viewing a citation graph) without losing the global context.
+Aesthetics	
+
+Exaggerated corner rounding and "squishy" press states.
+	Aligns with the Tactile Maximalism trend, making data feel approachable.
+ 
+
+Crucially, the Bento Grid in Genio is not static. It adapts to the user's "vibe" or mode. If the user engages the "Deep Work" mode (aligned with the "Lab" features), the grid tightens, colors desaturate to reduce distraction, and tiles prioritize dense data density. In "Exploration" mode, the grid loosens, colors become vibrant (neon gradients), and tiles prioritize discovery and serendipitous connections.  
+
+1.3 The "Decay UI" Pattern: Visualizing Data Entropy
+
+A unique and critical contribution of the Genio specification to 2026 design patterns is Decay UI. In an era flooded with AI-generated content and rapidly evolving scientific consensus, the freshness and reliability of data are paramount. "Decay UI" translates metadata about a document's age, verification status, or retraction history into visual degradation.  
+
+Rather than relying on text labels (e.g., "Warning: Outdated"), Genio alters the rendering of the text itself. A scientific paper that has been retracted or a news article heavily disputed by primary sources will appear visually "weathered"—lower contrast, slightly rusted typography, or a subtle noise overlay. This taps into the user's primal intuition: fresh food looks bright, rotting food looks dull. By mimicking this biological signal, Genio communicates data reliability at a sub-perceptual level (Level 1 Visual Details), allowing users to instinctively filter out "informational rot" without reading a single word.  
+
+This pattern extends to the "Truth-Layer." When a claim in a text is verified against an official source (e.g., a central bank report), it glows with a subtle, stable light. Conversely, disputed claims flicker or appear unstable, prompting the user to investigate the "Audit Trail" sidebar for clarification.  
+
+1.4 Trust UI and Confidence Visualization
+
+As AI systems become more agentic, user trust becomes the limiting factor for adoption. The Trust UI trend of 2026 focuses on transparency and explainability. Users refuse to rely on "black box" systems; they demand to see the "receipts."  
+
+Genio implements a rigorous Trust UI framework:
+
+    Confidence Gradient: Every AI-generated summary or insight is accompanied by a visual confidence indicator—not just a percentage, but a color-coded spectrum (Green/Yellow/Red) or uncertainty bands in data visualizations.   
+
+Source Anchoring: No claim exists without a tether. Hovering over any sentence in a Genio-generated report reveals a connector line linking directly to the specific paragraph in the source PDF or RSS feed. This "Source Tracing" is non-negotiable for the "Lab" workspace.  
+
+Reasoning Loaders: Instead of generic spinning wheels, Genio displays the AI's "thought process" in real-time (e.g., "Cross-referencing with Zotero...", "Checking statistical power...", "Detecting bias..."). This creates a perception of thoroughness and diligence, reinforcing the user's trust in the system's "work ethic."  
+
+1.5 Spatial Interfaces Beyond VR
+
+While spatial computing (AR/VR) has matured, 2026 also sees the application of spatial patterns to 2D screens. Genio treats the browser and desktop window not as flat canvases but as viewports into a 3D space.  
+
+    Z-Axis Layering: The "Library" workspace uses depth to represent time or relevance. Recent books are "closer" (larger, brighter), while older archives recede into the virtual background.   
+
+Morphing Scroll: Scrolling is no longer just vertical translation. In Genio, scrolling through a timeline or a citation graph triggers morphing interactions where elements scale and rearrange dynamically, providing a sense of traveling through the data rather than just past it.  
+
+Ambient Awareness: The interface is context-aware. Using local sensors and AI, Genio detects if the user is rushing (walking with a phone) or stationary (at a desk). The UI adapts accordingly—large, high-contrast buttons for the mobile context (Stream Mode), and dense, multi-panel layouts for the desktop context (Lab Mode).  
+
+Part II: The Iron Core – Cloud-First Rust Architecture
+
+To deliver the high-performance, "squishy," and computationally intensive features of Genio without draining batteries or lagging, the engineering strategy relies on a Cloud-First Rust Architecture. This approach eschews the bloated legacy of Electron-only apps and the platform-specific silos of Swift/Kotlin in favor of a unified, memory-safe, and incredibly fast core written in Rust.  
+
+2.1 The "Shared Core" Paradigm
+
+The central architectural principle of Genio is "Business Logic in a Single Place, UI Native Everywhere". The application logic—database management, sync algorithms, cryptographic hashing, and parsing—is written once in Rust. This core is then compiled as a shared library for every target platform.  
+
+    Desktop (Windows/macOS/Linux): Genio utilizes Tauri v2. Unlike Electron, which bundles a heavy Chromium instance and Node.js runtime, Tauri relies on the operating system's native WebView (WebView2 on Windows, WebKit on macOS). The Rust core communicates with the frontend via a highly optimized Inter-Process Communication (IPC) bridge. This results in binary sizes as small as 600KB to 15MB, compared to Electron's 100MB+, and significantly lower memory footprints.   
+
+Mobile (iOS/Android): Instead of rewriting logic in Swift or Kotlin, Genio uses React Native coupled with the Rust core via UniFFI and JSI (JavaScript Interface). UniFFI automates the generation of foreign function interface bindings, allowing the Rust code to be called directly and safely from Kotlin or Swift. This "Rust-Powered Turbo Module" approach ensures that heavy tasks like parsing a 500-page PDF happen at native speeds, bypassing the JavaScript bridge bottleneck.  
+
+Web Extension (WASM): The same Rust core is compiled to WebAssembly (WASM). This allows the browser extension to perform complex tasks—like cleaning HTML, generating content hashes, and identifying semantic chunks—locally within the user's browser before sending data to the cloud.  
+
+2.2 Local-First Synchronization Strategy
+
+Genio follows a Local-First philosophy: the user's device is the primary source of truth, ensuring the app works perfectly offline. However, "Local-First" does not mean "Local-Only." The cloud acts as a sophisticated relay and backup.  
+
+The Sync Engine: CRDTs over LWW
+Traditional "Last Write Wins" (LWW) synchronization strategies are catastrophic for collaborative or multi-device research, as they can overwrite legitimate data. Genio employs Conflict-free Replicated Data Types (CRDTs), specifically utilizing libraries like Yjs or Automerge.  
+
+    Mechanism: CRDTs ensure that data structures (like the user's highlights, notes, and knowledge graph edges) can be modified independently on a phone and a laptop simultaneously. When the devices reconnect, the mathematical properties of CRDTs guarantee that both states merge into a consistent final state without conflicts.   
+
+Efficiency: Yjs is optimized for performance and network agnosticism, allowing Genio to sync updates via WebSockets or even WebRTC for peer-to-peer capabilities. This enables real-time collaboration in the "Lab" workspace, where multiple researchers can annotate a paper simultaneously.  
+
+Database Selection: SQLite and DuckDB
+The local persistence layer leverages SQLite for transactional data (user settings, reading progress, active queues) due to its reliability and ubiquity. However, for the analytical heavy-lifting required in the "Lab" workspace (e.g., querying thousands of vector embeddings or statistical data points), Genio integrates DuckDB. DuckDB's columnar storage format makes it orders of magnitude faster than SQLite for OLAP (Online Analytical Processing) workloads, enabling the user to run complex queries on their local library instantly.  
+
+2.3 Cloud-First Vector Infrastructure
+
+While local execution handles logic and metadata, the semantic intelligence of Genio resides in the cloud. Storing terabytes of vector embeddings on a user's phone is impractical. Therefore, Genio implements a Cloud-First Vector Architecture.
+
+Multi-Tenant Vector Database Strategy
+To scale to millions of users (tenants) efficiently, Genio must solve the "Multi-Tenancy" problem in vector search. Isolating every user into a separate database collection creates massive overhead.  
+
+    Partitioning: Genio uses a "Partition Key" strategy (supported by databases like Milvus or customized Qdrant configurations). All user vectors live in massive, shared collections, but every query is strictly filtered by a user_id partition key. This allows the database to retrieve a user's specific context in milliseconds while sharing the underlying infrastructure costs across the entire user base.   
+
+Tiered Storage: To optimize the "Unit Economics," Genio uses a tiered approach.  
+
+    Hot Tier (Redis): The "Working Set" (e.g., the current book being read, the active research project) is cached in Redis for ultra-low latency retrieval. Redis outperforms pure vector DBs in QPS (Queries Per Second) for active data.   
+
+Cold Tier (Qdrant/Milvus): The long-tail archival data (books read years ago) resides in Qdrant or Milvus, stored on cheaper SSDs/Object Storage but ready to be "hydrated" into the Hot Tier upon request.  
+
+Privacy and Security
+Given the sensitive nature of "Corporate Memory" and personal reading habits, security is paramount. The architecture employs End-to-End Encryption (E2EE). While the vector database needs to "see" the vectors to index them, the raw text and metadata can be encrypted on the client side. Advanced schemes like PQ3 (Post-Quantum Cryptography) are integrated to future-proof the communication channels against quantum decryption threats, creating a "Level 3" security protocol for user data.  
+
+Part III: The Cognitive Engine – Server-Side RAG Algorithms
+
+The intelligence of Genio is not "magic"; it is the result of a sophisticated Retrieval-Augmented Generation (RAG) pipeline. By 2026, the industry has moved beyond the naive "chunk-and-retrieve" RAG models of 2024 toward GraphRAG and Agentic RAG architectures.  
+
+3.1 GraphRAG: Solving the Reasoning Gap
+
+Traditional Vector RAG excels at finding text that "looks like" the query (semantic similarity) but fails at reasoning about relationships (e.g., "How does the methodology in Paper A contradict the results in Paper B?"). Genio implements GraphRAG, which combines vector search with a Knowledge Graph (KG).  
+
+    Mechanism: When a document is ingested, Genio doesn't just chunk it. It extracts entities (authors, chemical compounds, legal clauses) and relationships (cites, contradicts, supports) to build a graph.   
+
+Retrieval: When a user asks a complex question, the system traverses this graph. It can "hop" from a node representing a chemical compound to a node representing a side effect found in a different paper, even if the two terms never appear in the same paragraph.  
+
+Hybrid Search: Genio uses a hybrid pattern. It employs vector search for broad, fuzzy discovery (finding relevant themes) and graph traversal for precise, structured reasoning (finding specific contradictions).  
+
+3.2 Semantic Chunking Algorithms
+
+The quality of RAG depends entirely on how the text is sliced. Arbitrary chunking (e.g., every 500 words) often severs the semantic link between a subject and its predicate. Genio utilizes Semantic Chunking algorithms.  
+
+The algorithm calculates the cosine similarity between the embeddings of consecutive sentences (vi−1​ and vi​). A drop in similarity indicates a shift in topic.
+simcos​(vi−1​,vi​)=∥vi−1​∥∥vi​∥vi−1​⋅vi​​
+
+When 1−simcos​ exceeds a dynamic threshold, the system places a chunk boundary. This ensures that every retrieved "Atomo" of knowledge is a coherent, self-contained thought, preserving the "semantic integrity" required for accurate AI synthesis.  
+
+3.3 Agentic RAG and The "Router"
+
+Genio does not use a single monolithic model for all tasks. It employs an Agentic Architecture managed by a "Router".  
+
+    The Router: A lightweight model that analyzes the user's intent.
+
+        Intent: "Summarize this news." → Route to Flash Model (e.g., Gemini Flash/Haiku). Low cost, high speed.
+
+        Intent: "Analyze the statistical validity of this paper." → Route to Reasoning Model (e.g., GPT-5/Opus class). High cost, deep logic.
+
+        Intent: "Find documents about X." → Route to Retrieval Agent.
+
+    Autonomous Iteration: If the Retrieval Agent fails to find sufficient data, it doesn't give up. It reformulates the query, expands the search scope, or asks the user for clarification—an "Agentic Loop" that mimics a human research assistant.   
+
+3.4 Automated Statistical Power Analysis (The Lab Engine)
+
+A core feature of the "Lab" workspace is the Stat-Shield, which automatically validates scientific claims. LLMs are notoriously bad at math, so Genio decouples the extraction from the calculation.  
+
+    Extraction: A specialized LLM extracts parameters from the paper: Sample Size (n), Effect Size (d or η2), and Alpha (α).   
+
+Calculation: These values are passed to a deterministic Python Sandbox running libraries like SciPy and Statsmodels.  
+
+Power Analysis: The system calculates the statistical power (1−β) using the standard formula for the specific test type (e.g., t-test):
+n=d2(Zα/2​+Zβ​)2⋅2σ2​
+
+
+If the calculated power is below the standard threshold (0.8), the paper is flagged with a visual warning in the "Decay UI" style, alerting the researcher that the study is underpowered.  
+
+This pipeline also includes P-Curve Analysis to detect "p-hacking" (a suspicious abundance of p-values just below 0.05). This transforms Genio from a passive reader into an active "Peer Reviewer."  
+
+Part IV: Genio Application Specification – From Concept to Product
+
+Synthesizing the design trends, architecture, and algorithms, we define the final specification for Genio (specifically the iteration known as Nexus Reader and Aether in the conceptual evolution).
+4.1 Product Vision and Workspaces
+
+Genio is a "Cognitive Operating System" that decouples content from its container. It is accessed via a unified application shell (Desktop/Mobile/Web) divided into three adaptive workspaces:  
+
+    Stream (The Intelligent Aggregator):
+
+        Input: RSS feeds, Newsletters, Social Links.
+
+        Processing: Cloud-based Semantic Clustering grouping identical stories. "De-Hype" agents rewrite clickbait titles into factual summaries.   
+
+UI: Responsive Bento Grid. High-velocity updates. "Daily Brief" audio generation (TTS) for commuting.  
+
+    Goal: Noise reduction and rapid situational awareness.
+
+Library (The Augmented Memory):
+
+    Input: EPUBs, PDFs, Long-form Essays.
+
+    Processing: Semantic Chunking and GraphRAG indexing.
+
+    UI: "Augmented TOC" showing heatmaps of concept density. "Semantic Zoom" to expand/collapse text detail. "Liquid Output" to transform chapters into checklists or timelines.   
+
+    Goal: Deep learning and retention ("Synapse" connective memory).
+
+Lab (The Research Engine):
+
+    Input: Scientific Papers (ArXiv, PubMed), Datasets.
+
+    Processing: Matrix Extraction (converting PDF data to tables), Stat-Shield (Power Analysis/P-Hacking detection), WEIRD bias detection.
+
+    UI: Split-screen "Audit Trail." Visual "Decay" for retracted papers. Integration with Zotero/Overleaf.   
+
+        Goal: Truth verification and evidence synthesis.
+
+4.2 The "Moat" and Unit Economics
+
+The economic viability of Genio relies on the "Ingest Once, Query Many" model.  
+
+    Shared Ingestion: If 5,000 users subscribe to the "TechCrunch" RSS feed, Genio's cloud servers fetch, clean, and vector-embed that feed once. The cost is amortized across all users.
+
+    COGS (Cost of Goods Sold): For a power user, the estimated monthly cost is ~$1.04 (Storage: $0.33, AI Compute: $0.47, Bandwidth: $0.10).   
+
+Pricing: A subscription model ($20-$30/month) yields a gross margin of >90%, making the business highly sustainable and attractive to Venture Capital.  
+
+4.3 Conclusion
+
+Genio represents the inevitable convergence of reliable design, performant engineering, and truthful AI. By leveraging Tactile Maximalism and Decay UI, it speaks to the user's intuition. By building on a Rust Core and Local-First sync, it respects the user's device and privacy. And by deploying GraphRAG and Statistical Validation, it respects the user's intelligence. In 2026, Genio is not just an app; it is the necessary tool for navigating the post-truth era with clarity and rigor.
+medium.com
+2026 UX/UI Design Trends that will be everywhere | by Tanmay Vatsa | Dec, 2025 - Medium
+Si apre in una nuova finestra
+uxstudioteam.com
+UI trends 2026: top 10 trends your users will love - UX studio
+Si apre in una nuova finestra
+lyssna.com
+App design trends for 2026 - Lyssna
+Si apre in una nuova finestra
+haddingtoncreative.com
+The top web design trends of 2026
+Si apre in una nuova finestra
+medium.com
+8 Top-Notch UX/UI Design Trends to Watch in 2026 | by Focotik - Medium
+Si apre in una nuova finestra
+landdding.com
+Bento Grid Design: How to Create Modern Modular Layouts in 2026 - Landdding
+Si apre in una nuova finestra
+crownsvillemedia.com
+Website Trends To Prepare For In 2026 | Crownsville Media
+Si apre in una nuova finestra
+agentic-design.ai
+Confidence Visualization UI Patterns (CVP) - Agentic Design
+Si apre in una nuova finestra
+aiuxdesign.guide
+Confidence Visualization | AI Design Patterns - aiux
+Si apre in una nuova finestra
+orizon.co
+10 UI/UX Trends That Will Shape 2026 - Orizon Design
+Si apre in una nuova finestra
+uxdesign.cc
+Spatial vibe coding: prototyping immersive reality with AI | by Albertmauri - UX Collective
+Si apre in una nuova finestra
+codewave.com
+Top 10 UX Design Trends to Watch in 2026 - - Codewave
+Si apre in una nuova finestra
+v2.tauri.app
+Tauri 2.0 | Tauri
+Si apre in una nuova finestra
+medium.com
+Top 5 Cross-Platform Frameworks in 2025: A Detailed Comparison | by Namrata Bagh
+Si apre in una nuova finestra
+hacks.mozilla.org
+Introducing Uniffi for React Native: Rust-Powered Turbo Modules - Mozilla Hacks
+Si apre in una nuova finestra
+mozilla.github.io
+Design Principles - The UniFFI user guide
+Si apre in una nuova finestra
+github.com
+mozilla/uniffi-rs: a multi-language bindings generator for rust - GitHub
+Si apre in una nuova finestra
+docs.expo.dev
+Local-first architecture with Expo
+Si apre in una nuova finestra
+rxdb.info
+Why Local-First Software Is the Future and its Limitations | RxDB - JavaScript Database
+Si apre in una nuova finestra
+medium.com
+Beyond Offline-First: The Nightmare of Data Synchronization & CRDTs | by Engin Bolat
+Si apre in una nuova finestra
+github.com
+yjs/yjs: Shared data types for building collaborative software - GitHub
+Si apre in una nuova finestra
+docs.yjs.dev
+Yjs Docs: Introduction
+Si apre in una nuova finestra
+medium.com
+SQLite vs DuckDB: A Comprehensive Comparison for Modern Data Management - Medium
+Si apre in una nuova finestra
+datacamp.com
+Si apre in una nuova finestra
+motherduck.com
+DuckDB vs SQLite: Which Embedded Database Should You Use? - MotherDuck
+Si apre in una nuova finestra
+uplatz.com
+Multi-Tenancy Patterns in Vector Databases for SaaS Applications: Architectural Dynamics, Performance Trade-offs, and Future Scaling Strategies | Uplatz Blog
+Si apre in una nuova finestra
+medium.com
+Scaling to 100,000 Collections: My Experience Pushing Multi-Tenant Vector Database Limits | by Marcus Feldman | Medium
+Si apre in una nuova finestra
+redis.io
+Benchmarking results for vector databases | Redis
+Si apre in una nuova finestra
+zilliz.com
+Milvus vs Qdrant | Vector Database Comparison - Zilliz
+Si apre in una nuova finestra
+security.apple.com
+iMessage with PQ3: The new state of the art in quantum-secure messaging at scale
+Si apre in una nuova finestra
+medium.com
+Rethinking RAG: Pipelines Are the Past, Agentic Is the Future | by Rod Johnson - Medium
+Si apre in una nuova finestra
+medium.com
+Understanding Graph RAG, Vector RAG, and Agentic RAG: A Deep Dive into Retrieval-Augmented Generation (RAG) | by Wijdèn Bouzidii | Medium
+Si apre in una nuova finestra
+chitika.com
+Graph Rag Vs Vector RAG: Complete guide for Beginners - Chitika
+Si apre in una nuova finestra
+meilisearch.com
+Si apre in una nuova finestra
+flur.ee
+GraphRAG - Fluree
+Si apre in una nuova finestra
+foojay.io
+Navigating the Nuances of GraphRAG vs. RAG - foojay
+Si apre in una nuova finestra
+arxiv.org
+Comparing RAG and GraphRAG for Page-Level Retrieval Question Answering on Math Textbook - arXiv
+Si apre in una nuova finestra
+meilisearch.com
+GraphRAG vs. Vector RAG: Side-by-side comparison guide - Meilisearch
+Si apre in una nuova finestra
+learn.microsoft.com
+RAG and generative AI - Azure AI Search - Microsoft Learn
+Si apre in una nuova finestra
+docs.cloud.google.com
+About hybrid search | Vertex AI | Google Cloud Documentation
+Si apre in una nuova finestra
+ewsolutions.com
+How Semantic Chunking Leads to Superior Data Accuracy - EWSolutions
+Si apre in una nuova finestra
+firecrawl.dev
+Best Chunking Strategies for RAG in 2025 - Firecrawl
+Si apre in una nuova finestra
+frontiersin.org
+Enhancing RAPTOR with semantic chunking and adaptive graph clustering - Frontiers
+Si apre in una nuova finestra
+biorxiv.org
+N-Power AI: A Specialized Agent Framework for Automated Sample Size and Power Analysis in Clinical Trial Design | bioRxiv
+Si apre in una nuova finestra
+mdpi.com
+Benchmarking Multiple Large Language Models for Automated Clinical Trial Data Extraction in Aging Research - MDPI
+Si apre in una nuova finestra
+julius.ai
+Python Statistical Analysis: Fundamentals, Libraries, and How-to - Julius AI
+Si apre in una nuova finestra
+stats.stackexchange.com
+Python package for this power analysis calculator [closed] - Stats StackExchange
+Si apre in una nuova finestra
+pnas.org
+Screening p-hackers: Dissemination noise as bait | PNAS
+Si apre in una nuova finestra
+pmc.ncbi.nlm.nih.gov
+Tempest in a teacup: An analysis of p-Hacking in organizational res

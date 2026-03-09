@@ -1,0 +1,260 @@
+version: '3.8'
+
+# Production Docker Compose Configuration
+# Use this for production deployments
+
+services:
+  # Load Balancer
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - static_assets:/var/www/static:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - genio_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Backend
+  backend:
+    image: ghcr.io/genio/genio-mvp/backend:${VERSION:-latest}
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - QDRANT_URL=${QDRANT_URL}
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+      - WORKERS=4
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - genio_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend
+  frontend:
+    image: ghcr.io/genio/genio-mvp/frontend:${VERSION:-latest}
+    environment:
+      - VITE_API_URL=/api
+      - VITE_ENVIRONMENT=production
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # Celery Workers
+  worker:
+    image: ghcr.io/genio/genio-mvp/backend:${VERSION:-latest}
+    command: celery -A app.tasks worker --loglevel=INFO --concurrency=4 -Q feeds,articles,briefs,maintenance,search_index
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - QDRANT_URL=${QDRANT_URL}
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ENVIRONMENT=production
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # Celery Beat Scheduler
+  beat:
+    image: ghcr.io/genio/genio-mvp/backend:${VERSION:-latest}
+    command: celery -A app.tasks beat --loglevel=INFO
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - ENVIRONMENT=production
+    volumes:
+      - celery_beat:/var/lib/celery
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # Flower - Celery Monitoring
+  flower:
+    image: ghcr.io/genio/genio-mvp/backend:${VERSION:-latest}
+    command: celery -A app.tasks flower --port=5555
+    environment:
+      - REDIS_URL=${REDIS_URL}
+    ports:
+      - "5555:5555"
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # PostgreSQL Primary
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER:-genio}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME:-genio}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+    networks:
+      - genio_network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  # Redis Cluster
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - genio_network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # Elasticsearch
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - genio_network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  # Qdrant Vector DB
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      - QDRANT__LOG_LEVEL=INFO
+    networks:
+      - genio_network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # Grafana Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/datasources:/etc/grafana/provisioning/datasources:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+  # Backup Service
+  backup:
+    image: offen/docker-volume-backup:latest
+    environment:
+      - BACKUP_CRON_EXPRESSION=0 2 * * *
+      - BACKUP_RETENTION_DAYS=30
+      - BACKUP_FILENAME=genio-backup-%Y-%m-%dT%H-%M-%S.tar.gz
+      - BACKUP_ARCHIVE=/archive
+      - AWS_S3_BUCKET_NAME=${BACKUP_S3_BUCKET}
+      - AWS_ACCESS_KEY_ID=${BACKUP_AWS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${BACKUP_AWS_SECRET}
+      - AWS_DEFAULT_REGION=${BACKUP_AWS_REGION}
+    volumes:
+      - postgres_data:/backup/postgres:ro
+      - redis_data:/backup/redis:ro
+      - elasticsearch_data:/backup/elasticsearch:ro
+    networks:
+      - genio_network
+    restart: unless-stopped
+
+networks:
+  genio_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  elasticsearch_data:
+  qdrant_data:
+  celery_beat:
+  static_assets:
+  prometheus_data:
+  grafana_data:

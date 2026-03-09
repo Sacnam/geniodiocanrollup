@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genio Lite</title>
+    <style>
+        :root { --bg: #f4f4f9; --text: #333; --accent: #2c3e50; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; max-width: 800px; margin: 0 auto; }
+        h1 { border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; }
+        .card { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+        input, button { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: var(--accent); color: white; cursor: pointer; }
+        .section { margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <h1>Genio Lite <small style="font-size: 0.5em; opacity: 0.7;">Antirez Edition</small></h1>
+    
+    <div class="section">
+        <h3>RSS Feed</h3>
+        <input type="text" id="feedUrl" placeholder="https://example.com/rss">
+        <button onclick="addFeed()">Aggiungi</button>
+        <div id="feedList" style="margin-top: 1rem;"></div>
+    </div>
+
+    <div class="section">
+        <h3>E-Books (ePub)</h3>
+        <input type="file" id="epubFile" accept=".epub">
+        <button onclick="uploadBook()">Carica</button>
+        <div id="bookList" style="margin-top: 1rem;"></div>
+    </div>
+
+    <div class="section">
+        <h3>Cerca nel "Cervello"</h3>
+        <input type="text" id="searchQuery" placeholder="Cerca parole o concetti...">
+        <button onclick="doSearch()">Cerca</button>
+        <div id="searchResults" style="margin-top: 1rem;"></div>
+    </div>
+
+    <script>
+        const API = "http://localhost:8001";
+
+        async function addFeed() {
+            const url = document.getElementById('feedUrl').value;
+            await fetch(`${API}/feeds/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title: url, url: url })
+            });
+            loadFeeds();
+        }
+
+        async function loadFeeds() {
+            const res = await fetch(`${API}/feeds/`);
+            const feeds = await res.json();
+            document.getElementById('feedList').innerHTML = feeds.map(f => `<div>• ${f.url}</div>`).join('');
+        }
+
+        async function uploadBook() {
+            const file = document.getElementById('epubFile').files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            await fetch(`${API}/books/`, { method: 'POST', body: formData });
+            loadBooks();
+        }
+
+        async function loadBooks() {
+            const res = await fetch(`${API}/books/`);
+            const books = await res.json();
+            document.getElementById('bookList').innerHTML = books.map(b => `<div>📖 ${b.title} (${b.author})</div>`).join('');
+        }
+
+        async function doSearch() {
+            const q = document.getElementById('searchQuery').value;
+            const res = await fetch(`${API}/search/?q=${q}`);
+            const results = await res.json();
+            document.getElementById('searchResults').innerHTML = results.map(r => `<div>🔍 ${r[1]}: <b>${r[2]}</b></div>`).join('');
+        }
+
+        loadFeeds();
+        loadBooks();
+    </script>
+</body>
+</html>

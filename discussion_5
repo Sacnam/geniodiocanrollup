@@ -1,0 +1,525 @@
+STRATEGIC RESEARCH BRIEF: Genio Knowledge OS - Agentic Scaffolding & Exploratory Discovery
+1. Introduction: The Epistemic Crisis and the Architecture of Active Cognition
+1.1 The Paradox of Abundance and the Activation Energy Deficit
+
+By 2026, the global information ecosystem has entered a phase of "Hyper-Abundance Paradox." While the sheer volume of accessible human knowledge—spanning academic repositories, decentralized newsletters, and real-time technical documentation—has grown exponentially, the cognitive capacity of the human mind to process, synthesize, and retain this information remains biologically static. We face a widening "Epistemic Gap": the delta between available information and actionable knowledge.
+
+The central friction in this landscape is Activation Energy. Deep reading—the sustained, critical engagement with complex, non-fiction, or technical texts—requires a significant upfront investment of cognitive load. The reader must essentially "boot up" a mental simulation of the author's world, holding definitions, axioms, and dependency chains in working memory. When the density of the text exceeds the available working memory, the reader experiences cognitive failure, leading to high abandonment rates of high-value material. Current reading interfaces (eBooks, PDF viewers, browser aggregators) are passive containers; they display text but offer no structural support to bear this cognitive load.  
+
+Simultaneously, the "Information Silo" problem has metastasized. Algorithms optimized for engagement rather than enlightenment have created hermetically sealed feedback loops. A user reading about "Modern Monetary Theory" in their curated feed is rarely exposed to the adjacent biological concept of "Homeostasis" or the rigorous mathematical critique of the theory, unless they actively break their own consumption patterns. The activation energy required to leave the silo and perform exploratory verification is prohibitively high.  
+
+1.2 The Genio Mandate: From Smart Reader to Exocortex
+
+The Genio Knowledge OS is not a "better e-reader." It is a doctoral-level re-engineering of the human-information interface, designed to function as an Agentic Exocortex. Its mission is to externalize the cognitive labor of structure-building and discovery, freeing human working memory for the higher-order tasks of synthesis, critique, and creative application.
+
+This manifesto outlines the architectural blueprint for Genio in the 2026 technical landscape. It posits a system driven by Large Concept Models (LCMs) rather than simple token predictors, governed by a Dual-Agent Protocol (The Librarian and The Scout), and grounded in a Hybrid GraphRAG memory architecture that privileges structural relationships over mere semantic similarity.
+
+We reject the 2024 era's reliance on "Chat with PDF" wrappers. The 2026 requirement is for Agentic Scaffolding: a system that proactively builds the mental maps required for understanding before the user even struggles, and Exploratory Discovery: a system that autonomously ventures into the unknown to retrieve the "Knowledge Deltas" that challenge and expand the user's worldview.
+2. Cognitive Impact Analysis: Engineering the Flow State
+
+The primary metric of success for the Genio architecture is the reduction of Extraneous Cognitive Load. Cognitive Load Theory (CLT) categorizes mental effort into three types: Intrinsic (the inherent difficulty of the subject), Extraneous (the effort of processing the presentation), and Germane (the effort of learning and schema construction). Current tools impose massive Extraneous load. Genio aims to reduce this to near-zero, reallocating mental bandwidth to Germane load.  
+
+2.1 AI-Augmented Scaffolding: The Dynamic Concept Map
+
+In 2026, the breakthrough in "Active Reading Scaffolding" is the move from static text analysis to Real-Time Dependency Graphing.
+2.1.1 The Shift from Tokens to Concepts (LCMs)
+
+The limitations of 2024-era Large Language Models (LLMs) in maintaining long-range coherence have been addressed by the adoption of Large Concept Models (LCMs). Unlike LLMs, which predict the next token based on statistical probability, LCMs process "concepts" as language-agnostic semantic units. This allows the Genio system to generate a structural map of a book that represents the logical flow of arguments rather than the linear sequence of words.  
+
+When a user opens a dense text (e.g., The Structure of Scientific Revolutions), Genio's ingestion engine does not just render pages. It performs a Hierarchical Concept Extraction, identifying:
+
+    Axiomatic Roots: The fundamental premises upon which the author builds.
+
+    Derivative Theses: Concepts that are logically dependent on the roots.
+
+    Supporting Evidence: Data points or historical examples used to bolster the theses.
+
+This structure is visualized as a Dynamic Concept Map in the peripheral interface. If a user struggles with a derivative thesis (e.g., "Incommensurability"), the system visualizes the dependency path back to the root, identifying exactly which prerequisite concept constitutes the "Knowledge Gap." This is cognitive scaffolding in its purest form: externalizing the logical structure so the mind doesn't have to hold it all at once.  
+
+2.1.2 Semantic Density Filtering: Core Theses vs. Noise
+
+Academic and non-fiction texts are often replete with rhetorical repetition and anecdotal fluff. Genio utilizes Information Gain Algorithms (Entropy reduction metrics) to separate high-signal "Core Theses" from supporting noise.  
+
+The system highlights sentences and paragraphs that possess high Semantic Density—those that introduce new nodes to the concept graph or modify the relationships between existing nodes. Conversely, anecdotal evidence is visually dampened (e.g., using lighter typography or collapsing it into expandable widgets). This allows the user to engage in "structural reading," navigating by the skeleton of the argument rather than the flesh of the prose.  
+
+2.2 Generative User Interfaces (GenUI): The Liquid Text Paradigm
+
+The static page is an anachronism. Genio leverages Generative UI (GenUI) technology  to create "Liquid Text" interfaces that adapt to the user's intent and the content's topology.  
+
+2.2.3 Just-in-Time Contextual Injection
+
+Traditional hyperlinking is high-friction (click, load new page, lose context). Genio employs Generative Overlays. If the user's gaze lingers on an unfamiliar term (detected via eye-tracking or cursor hover), the system consults the user's Personal Knowledge Graph (PKG).
+
+    Scenario: The user encounters the term "Bayesian Priors."
+
+    System Logic: "Does the user possess a node for 'Bayesian Statistics' in their PKG?"
+
+        If Yes: Do nothing (assume knowledge).
+
+        If No: Generate a micro-summary overlay explaining the term specifically in the context of the current sentence, using an analogy relevant to the user's background (e.g., explaining it in terms of 'supply chain forecasting' for a logistics expert).   
+
+This "Just-in-Time" explanations reduce the activation energy of encountering new jargon, preventing the "context switching" that destroys deep reading flow.  
+
+2.2.4 Non-Linear Navigation Patterns
+
+Navigation is decoupled from pagination. The user navigates via the Concept Graph. Clicking on a concept node (e.g., "Inflation") instantly reflows the document, aggregating every significant mention of that concept into a single, continuous narrative stream. This allows for "Topic-First" reading, where the user can trace the evolution of a single idea through the entire text without manually scanning hundreds of pages.  
+
+3. The Agentic Architecture: Reader vs. Scout
+
+To operationalize this vision, Genio employs a Dual-Agent System. This separation of concerns is critical for handling the distinct latency and compute requirements of "Maintenance" (Ingestion) vs. "Discovery" (Exploration).
+3.1 The Inbound Agent: "The Librarian" (Maintenance & Indexing)
+
+The Librarian is the custodian of the user's Personal Knowledge Graph (PKG). Its primary directive is Ingestion efficiency and Semantic consistency.
+3.1.1 Ingestion Streams and Normalization
+
+The Librarian sits at the gateway of the user's information diet. It monitors:
+
+    Active Streams: RSS feeds, Substack/Ghost newsletters, Academic alerts (arXiv/PubMed).
+
+    Passive Archives: Ebook libraries (EPUB/PDF), Reference managers (Zotero integration).
+
+Upon detecting new content, the Librarian performs Multimodal Normalization. Using 2026-era vision-language models (e.g., Llama-3.2-Vision fine-tunes), it strips disparate formatting (multi-column PDFs, HTML ads) and converts all content into a unified Markdown/JSON schema that preserves semantic structure (headers, lists, emphasis).  
+
+3.1.2 The "Knowledge Delta" Algorithm
+
+The Librarian's critical value add is the Delta Analysis. It prevents information overload by filtering out redundancy. When a new article arrives, the Librarian compares its semantic vector and extracted claims against the existing PKG.
+
+    Redundancy Threshold: If a new article's semantic similarity to an existing node is >0.85, it is flagged as "Redundant."
+
+    Delta Detection: The agent identifies the specific differences (Deltas). "This article repeats the known history of AI, but adds a new data point regarding 2026 inference costs."
+
+    Output: The user is presented with the "Delta Summary"—reading only the 10% of the article that is actually new to them.   
+
+3.2 The Exploratory Agent: "The Scout" (Discovery & Synthesis)
+
+The Scout is the proactive, outbound agent. It solves the "Filter Bubble" problem by autonomously initiating Deep Research workflows outside the user's curated feeds.
+3.2.1 Trigger Mechanisms: Explicit and Implicit
+
+The Scout is not a chatbot waiting for a prompt; it is an observer.
+
+    Explicit Trigger: The user highlights a paragraph and commands "Scout, verify this" or "Find counter-arguments."
+
+    Implicit Trigger (The Curiosity Detection): If the user dwells on a section discussing a controversial theory (e.g., "The Dead Internet Theory") and highlights multiple terms, the Scout infers interest and initiates a background search for critiques and latest evidence.   
+
+The Interdisciplinary Bridge: If the user is reading a Sociology text about "tipping points," and the PKG contains deep knowledge in "Epidemiology," the Scout proactively searches for papers linking sociological tipping points to epidemiological models, synthesizing a bridge between the two domains.  
+
+3.2.2 The Deep Research Loop
+
+The Scout utilizes a Recursive "Chain-of-Thought" Search (similar to the 2025 "Deep Research" paradigms ).  
+
+    Decomposition: Breaks the query into sub-questions (e.g., "Find standard critiques," "Find empirical data 2024-2026," "Find author bias").
+
+    Parallel Execution: Fires concurrent calls to search APIs (Google/Perplexity/Consensus).
+
+    Evaluation & Filtering: Reads the retrieved content, scoring it for authority (domain reputation) and relevance (Information Gain). It aggressively filters clickbait and SEO spam using a "Trusted Source" whitelist (Academic journals, reputable think tanks).   
+
+    Synthesis: Generates a concise "Margin Note" injected into the user's document. "Note: A 2025 meta-analysis refutes this specific claim; see [Citation]."
+
+4. The 2026 Tech Stack Recommendation
+
+To support this high-fidelity, low-latency workflow, the technology stack must move beyond the simple "Vector DB + LLM" wrapper. The 2026 stack is Hybrid, Multimodal, and Graph-Native.
+4.1 Ingestion & Parsing: The Multimodal Frontier
+
+Standard OCR is obsolete. We require Layout-Aware Parsing to handle the high information density of charts and formulas.
+Component	Technology (2026 Landscape)	Function
+Document Parser	Nougat-v2 (Meta) / Unstructured.io Enterprise	
+
+End-to-end neural parsing of PDFs to Markdown, preserving headers and tables.
+Chart Transducer	Chart2Code-2026 (fine-tuned multimodal LLM)	
+
+Converts chart images into underlying data tables (CSV) and Python code for reproduction.
+Formula Engine	MathPix / Texify	
+
+Converts image-based equations into LaTeX for semantic dependency mapping.
+ 
+
+Why this matters: A user reading a financial report needs the data inside the bar charts, not just the text. The Chart Transducer allows the Scout to verify the data against the text claims—a crucial capability for automated fact-checking.
+4.2 Memory Architecture: Hybrid GraphRAG
+
+The debate between "Long-Context LLMs" and "RAG" has resolved into a Hybrid Consensus. Long-context models (1M+ tokens) are used for processing active documents, while GraphRAG is used for retrieving global context from the user's lifetime library.  
+
+4.2.1 The Graph-Vector Hybrid
+
+We reject pure Vector RAG due to its inability to handle multi-hop reasoning (e.g., "How does the author's argument here relate to the paper I read last year by his advisor?").
+
+    Graph Database: Neo4j (with GDS library) stores the Entities (Authors, Concepts) and Relationships (Refutes, Supports, authored_by).   
+
+Vector Database: Pinecone Serverless or Milvus stores the Unstructured Chunks (raw text embeddings) for semantic similarity search.  
+
+Hybrid Query Engine: A meta-retriever that performs parallel queries:
+
+    Vector Search for "semantically similar text."
+
+    Graph Traversal (2-hop) to find "structurally related concepts."
+
+    Reranks and fuses results (Reciprocal Rank Fusion) for the LLM context window.   
+
+4.3 Agentic Frameworks: Orchestration
+
+To manage the stateful, cyclic loops of the Scout (Search → Evaluate → Refine), we require an orchestration framework that supports directed cyclic graphs (DCGs).
+
+    Orchestrator: LangGraph is the superior choice over CrewAI for this architecture. LangGraph allows for fine-grained control over state transitions and "Human-in-the-Loop" breakpoints (e.g., asking the user for clarification before continuing a search). CrewAI's high-level abstraction is too opaque for the precision required in a system architecture.   
+
+Protocol: Agent Context Protocol (ACP). A standardized JSON schema for passing state between the Librarian and Scout, ensuring they share a common understanding of the user's "Knowledge Graph".  
+
+5. The Agent Protocol: Workflow Specification
+
+This section details the precise data flow and interaction logic between the User, The Librarian, and The Scout.
+5.1 The Librarian Protocol (Inbound & Indexing)
+
+Objective: Maintain the "Ground Truth" of the User's Personal Knowledge Graph (PKG).
+
+    Event: New Content Arrival (e.g., PDF upload paper.pdf).
+
+    Multimodal Parsing:
+
+        Unstructured.io pipeline extracts text, tables, and images.
+
+        Chart2Code converts Figure 1 into data_fig1.csv.
+
+    Atomization (Chunking):
+
+        Text is split into "Semantic Atoms" (discrete thoughts) rather than arbitrary token windows.
+
+    Graph Extraction (The "Knowledge Injection"):
+
+        An LLM (e.g., Gemini-1.5-Pro) processes the atoms to extract triples: (Concept A) --> (Concept B).
+
+        Entity Resolution: The Librarian queries Neo4j to check if Concept A already exists. If yes, it merges; if no, it creates a new node.   
+
+    Vector Embedding:
+
+        Atoms are embedded via text-embedding-3-large and stored in Pinecone with metadata pointing to the Neo4j Node ID.
+
+    Delta Notification:
+
+        Librarian calculates Similarity(New_Atom, Existing_Atoms).
+
+        If Similarity < 0.8 AND Importance > Threshold, add to "Weekly Briefing."
+
+5.2 The Scout Protocol (Outbound & Discovery)
+
+Objective: Expand the Knowledge Graph via autonomous research.
+
+    Event: User highlights text: "The Great Stagnation hypothesis suggests..."
+
+    Context Construction:
+
+        Scout retrieves the local context (surrounding paragraph).
+
+        Scout retrieves global context (User's prior notes on "Innovation" from PKG).
+
+    Plan Formulation (Reasoning):
+
+        Agent generates a research plan:
+
+            Task 1: Find empirical data on TFP (Total Factor Productivity) growth 2020-2025.
+
+            Task 2: Find critiques of "Great Stagnation" by techno-optimists (e.g., accelerationism).
+
+    Execution (Deep Research):
+
+        Tool Use: Agent calls SearchAPI (Google/Bing).
+
+        Reading: Agent visits top 5 URLs, parses content.
+
+        Filtering: "Is this source authoritative?" (Check domain whitelist). "Is this argument substantive?" (Check logical fallacy detector).
+
+    Synthesis & Injection:
+
+        Agent synthesizes findings into a "Counter-Argument Card."
+
+        UI Update: A subtle icon appears in the margin. Hovering reveals: "Recent data from 2025 contradicts this; TFP has spiked in AI sectors.."
+
+    Graph Write:
+
+        Scout writes a [Critique] node to the PKG, linking the book's node to the new external evidence node.
+
+5.3 Inter-Agent Synchronization
+
+The Personal Knowledge Graph (PKG) acts as the shared memory (Blackboard Pattern).
+
+    Read/Write Safety: The Librarian has Write authority on the Core (User's Library). The Scout has Write authority only on the Periphery (Suggestions/Notes).
+
+    Conflict Resolution: If the Scout finds information that contradicts the Librarian's core records (e.g., "This book says X, but the Scout found a retraction of X"), it flags the node with a conflict attribute, prompting the user to resolve the truth value.   
+
+6. The "Scout" Logic: Triggers, Filters, and Noise Reduction
+
+The existential risk of an autonomous agent is "Clippy 2.0"—annoying, low-quality interruptions. The Scout's logic must be defensive and high-precision.
+6.1 Epistemic Modeling and Relevance Scoring
+
+The Scout maintains a User Belief State model. It probabilistically models what the user already knows to avoid retrieving redundant information.  
+
+The Information Gain (IG) Metric:
+Before presenting any finding, the Scout calculates the expected Information Gain:
+IG(Finding∣PKG)=H(PKG+Finding)−H(PKG)
+
+    Where H is the entropy (uncertainty) of the knowledge state.
+
+    If the finding is merely a rewording of existing graph nodes (IG≈0), it is discarded.
+
+    If the finding connects two previously disconnected clusters in the graph (High IG), it is prioritized.
+
+6.2 The "Anti-Echo Chamber" Filter
+
+The Scout is explicitly programmed to value Dissensus. It uses "Stance Detection" algorithms to classify retrieved content as Supportive, Refuting, or Neutral relative to the user's current text.  
+
+    Logic: If the user is reading a text with strong Positive sentiment toward a topic, the Scout prioritizes search results with Negative or Critical stance.
+
+    Safety: To prevent "contrarian spam," the Scout filters for Argument Quality. It uses an NLP classifier trained on argumentation mining (e.g., identifying "Claim + Evidence" structures) to ensure that the counter-arguments are substantive, not just negation.   
+
+6.3 Hallucination Guardrails: The Verifier Loop
+
+Autonomous agents can hallucinate citations. To prevent this, the Scout employs a Verifier Agent in its loop.
+
+    Step: After the Searcher Agent generates a summary with citations, the Verifier Agent takes the URL and the Summary.
+
+    Action: It scrapes the URL again to verify that the claimed fact actually exists in the source text.
+
+    Pass/Fail: If the fact is not found, the result is discarded. This "Double-Check" adds latency but ensures 100% citation integrity.   
+
+7. Economic Viability & Business Models
+
+The deployment of "Always-On" agents introduces a linear cost structure (compute) that clashes with traditional flat SaaS pricing. We must model the unit economics of 2026 to ensure viability.
+7.1 Unit Economics: The "Cost to Serve" (2026 Projections)
+
+We assume 2026 inference costs have followed the "LLMflation" trend (10x reduction per year).  
+
+Operation	Frequency (Power User)	Model Class	Tokens (In/Out)	Est. Cost (2026)
+Librarian Ingest	50 articles/day	Flash/Haiku (Efficient)	100k / 10k	$0.02 / day
+Scout Research	10 Deep Loops/day	Opus/GPT-5 (Reasoning)	1M / 50k	$0.50 / day
+Graph Operations	Continuous	DB Query	N/A	$0.05 / day
+Total Daily Cost				~$0.57 / day
+Total Monthly Cost				~$17.10 / mo
+
+Note: A monthly COGS of ~$17.00 is high for a standard $20/mo SaaS subscription. The "Scout" is the cost driver.
+7.2 Monetization Strategy: Outcome-Based & Hybrid Pricing
+
+To align revenue with costs and value, Genio must adopt a Hybrid Pricing Model.  
+
+7.2.1 Tiered Subscription (Base Layer)
+
+    "The Reader" ($20/mo): Includes the Librarian (unlimited ingest) and "Lite Scout" (Vector-only search, no Deep Research loops). Covers the base platform costs.
+
+7.2.2 "Agent Credits" (Compute Layer)
+
+    "The Scholar" (Add-on): Users purchase "Cognitive Credits" for Deep Scout usage.
+
+        1 Deep Research Loop = 1 Credit (~$0.10 cost to user).
+
+        This caps the downside risk for Genio while allowing power users (e.g., a PhD student doing a literature review) to scale their usage as needed.
+
+7.2.3 Outcome-Based Pricing (Enterprise)
+
+For B2B clients (Think Tanks, R&D Labs), Genio sells "Completed Research Briefs."
+
+    Product: "Scout, generate a 50-page comparative analysis of these 200 PDFs."
+
+    Price: $50 per Brief.
+
+    Value: Replaces 10+ hours of analyst time.
+
+    Margin: High. (Cost to generate might be $5 in tokens; Price is $50).
+
+8. Conclusion: The Blueprint for 2026
+
+The Genio Knowledge OS represents the transition from Information Retrieval to Knowledge Construction. By 2026, the technology exists to build this:
+
+    LCMs allow us to map the logical structure of books, not just index their words.
+
+    GraphRAG allows us to maintain a coherent, evolving memory of the user's worldview.
+
+    Agentic Orchestration allows the system to proactively scout the horizon, bringing back the "Deltas" that drive learning.
+
+This architecture solves the Activation Energy problem by offloading the structural overhead of reading to the AI. It solves the Information Silo problem by deploying an autonomous agent whose sole purpose is to find the connections the user cannot see. It is a tool for the "Active Mind," designed not just to consume information, but to master it.
+9. Appendix: Technical Specifications & Data Structures
+9.1 The "Knowledge Atom" Schema (JSON)
+
+The fundamental unit of storage in the Librarian's index.
+JSON
+
+{
+  "atom_id": "uuid_v4",
+  "source_id": "doc_ref_123",
+  "content_hash": "sha256",
+  "text_content": "The concept of 'antifragility' extends beyond resilience...",
+  "semantic_vector": [0.12, -0.05,...], // 3072-dim embedding
+  "extracted_concepts":,
+  "relationships":,
+  "context_tags":,
+  "novelty_score": 0.92 // Calculated relative to user history
+}
+
+9.2 The "Agent Context Protocol" (ACP) Message
+
+The standard packet for communication between Librarian and Scout.
+JSON
+
+{
+  "session_id": "sess_001",
+  "user_intent": "Deep Reading: 'The Black Swan'",
+  "current_focus": {
+    "paragraph_id": "para_45",
+    "concepts":
+  },
+  "knowledge_state": {
+    "known_concepts":,
+    "uncertainty_level": "High"
+  },
+  "scout_directive": {
+    "action": "FIND_CRITIQUE",
+    "topic": "Gaussian Distribution in Economics",
+    "constraint": "Empirical studies post-2020"
+  }
+}
+
+This specification provides the rigorous foundation necessary for the engineering team to begin the build phase of the Genio Knowledge OS MVP in Q1 2026.
+arxiv.org
+Generative Large Language Models for Knowledge Representation: A Systematic Review of Concept Map Generation - arXiv
+Si apre in una nuova finestra
+mdpi.com
+Exploring the Cognitive Reconstruction Mechanism of Generative AI in Outcome-Based Design Education: A Study on Load Optimization and Performance Impact Based on Dual-Path Teaching - MDPI
+Si apre in una nuova finestra
+arxiv.org
+Perspectra: Choosing Your Experts Enhances Critical Thinking in Multi-Agent Research Ideation - arXiv
+Si apre in una nuova finestra
+docs.cloud.google.com
+Recommendation overview | BigQuery - Google Cloud Documentation
+Si apre in una nuova finestra
+arxiv.org
+The Future of AI Exploring the Potential of Large Concept ... - arXiv
+Si apre in una nuova finestra
+gliffy.com
+How to Draw Dependency Diagrams for Systems or Processes - Gliffy
+Si apre in una nuova finestra
+medium.com
+How to Convert Any Text Into a Graph of Concepts | by Rahul Nayak | TDS Archive | Medium
+Si apre in una nuova finestra
+kpcrossacademy.ua.edu
+Scaffolding AI as a Learning Collaborator: Integrating Artificial Intelligence in College Classes - The K. Patricia Cross Academy - The University of Alabama
+Si apre in una nuova finestra
+homes.cs.washington.edu
+Information Gain
+Si apre in una nuova finestra
+en.wikipedia.org
+Information gain (decision tree) - Wikipedia
+Si apre in una nuova finestra
+arxiv.org
+MapStory: LLM-Powered Text-Driven Map Animation Prototyping with Human-in-the-Loop Editing - arXiv
+Si apre in una nuova finestra
+mdpi.com
+Fact-Aware Generative Text Summarization with Dependency Graphs - MDPI
+Si apre in una nuova finestra
+developers.googleblog.com
+Introducing A2UI: An open project for agent-driven interfaces - Google for Developers Blog
+Si apre in una nuova finestra
+research.google
+Generative UI: A rich, custom, visual interactive user experience for any prompt
+Si apre in una nuova finestra
+machinelearning.apple.com
+On the Way to LLM Personalization: Learning to Remember User Conversations
+Si apre in una nuova finestra
+arxiv.org
+[2405.19686] Knowledge Graph Tuning: Real-time Large Language Model Personalization based on Human Feedback - arXiv
+Si apre in una nuova finestra
+box.com
+Box Doc Gen | Generate AI-powered documents at scale
+Si apre in una nuova finestra
+learn.microsoft.com
+What is Azure AI Immersive Reader? - Microsoft Learn
+Si apre in una nuova finestra
+productic.net
+Ultimate Guide to How Reading Patterns Have Transformed
+Si apre in una nuova finestra
+noduslabs.com
+Textexture: The Non-Linear Reading Machine - Nodus Labs
+Si apre in una nuova finestra
+arxiv.org
+From Charts to Code: A Hierarchical Benchmark for Multimodal Models - arXiv
+Si apre in una nuova finestra
+developer.nvidia.com
+Approaches to PDF Data Extraction for Information Retrieval | NVIDIA Technical Blog
+Si apre in una nuova finestra
+sites.google.com
+ΔInfer: Context-Sensitive Delta Inference for Identifying Workload-Dependent Performance Bottlenecks - Google Sites
+Si apre in una nuova finestra
+reddit.com
+The Rise of Autonomous Web Agents: What's Driving the Hype in 2025? : r/AI_Agents
+Si apre in una nuova finestra
+ideals.illinois.edu
+Implicit User Modeling for Personalized Search - IDEALS
+Si apre in una nuova finestra
+glean.com
+How knowledge graphs work and why they are the key to context for enterprise AI - Glean
+Si apre in una nuova finestra
+arxiv.org
+Deep Research: A Survey of Autonomous Research Agents - arXiv
+Si apre in una nuova finestra
+getmaxim.ai
+How to Test AI Reliability: Detect Hallucinations and Build End-to-End Trustworthy AI Systems - Maxim AI
+Si apre in una nuova finestra
+humansecurity.com
+AI Agent Signals: A Guide to Detecting Autonomous Traffic - HUMAN Security
+Si apre in una nuova finestra
+openreview.net
+ChartMoE: Mixture of Diversely Aligned Expert Connector for Chart Understanding
+Si apre in una nuova finestra
+medium.com
+RAG vs Long-Context LLMs: A Comprehensive Comparison | by Rost Glukhov - Medium
+Si apre in una nuova finestra
+meilisearch.com
+RAG vs. long-context LLMs: A side-by-side comparison - Meilisearch
+Si apre in una nuova finestra
+github.com
+getzep/graphiti: Build Real-Time Knowledge Graphs for AI Agents - GitHub
+Si apre in una nuova finestra
+medium.com
+GraphRAG System with LangChain, Gemini and Neo4j | by Vaibhav Agarwal - Medium
+Si apre in una nuova finestra
+firecrawl.dev
+Best Vector Databases in 2025: A Complete Comparison Guide - Firecrawl
+Si apre in una nuova finestra
+paradigma-digital.medium.com
+Vectors vs. Graphs: Which Database to Choose for Building RAG Applications?
+Si apre in una nuova finestra
+neo4j.com
+Enhancing Hybrid Retrieval With Graph Traversal Using the GraphRAG Python Package
+Si apre in una nuova finestra
+medium.com
+LangGraph vs. CrewAI: Which Framework Should You Choose for Your Next AI Agent Project? | by Shashank Shekhar pandey - Medium
+Si apre in una nuova finestra
+topuzas.medium.com
+The Great AI Agent Showdown of 2026: OpenAI, AutoGen, CrewAI, or LangGraph?
+Si apre in una nuova finestra
+neo4j.com
+Create a Neo4j GraphRAG Workflow Using LangChain and LangGraph
+Si apre in una nuova finestra
+neo4j.com
+Implementing 'From Local to Global' GraphRAG With Neo4j and LangChain: Constructing the Graph
+Si apre in una nuova finestra
+ieeexplore.ieee.org
+Using Nanopublications to Detect and Explain Contradictory Research Claims - IEEE Xplore
+Si apre in una nuova finestra
+aclanthology.org
+Stance Detection with Explanations - ACL Anthology
+Si apre in una nuova finestra
+arxiv.org
+Talk Isn't Always Cheap: Understanding Failure Modes in Multi-Agent Debate - arXiv
+Si apre in una nuova finestra
+ojs.aaai.org
+A Large-Scale Dataset for Argument Quality Ranking: Construction and Analysis
+Si apre in una nuova finestra
+researchgate.net
+A Large-Scale Dataset for Argument Quality Ranking: Construction and Analysis | Request PDF - ResearchGate
+Si apre in una nuova finestra
+introl.com
+Inference Unit Economics: The True Cost Per Million Tokens | Introl Blog
+Si apre in una nuova finestra
+a16z.com
+Welcome to LLMflation - LLM inference cost is going down fast ️ | Andreessen Horowitz
+Si apre in una nuova finestra
+nevermined.ai
+AI Agent Outcome-Based Pricing
+Si apre in una nuova finestra
+chargebee.com
+Selling Intelligence: The 2026 Playbook For Pricing AI Agents - Chargebee

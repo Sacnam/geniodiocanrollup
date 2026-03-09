@@ -1,0 +1,158 @@
+/* Premium E-Reader Styles */
+
+.ereader-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.ereader-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.ereader-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ereader-sidebar {
+  width: 300px;
+  border-right: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ereader-content {
+  flex: 1;
+  overflow-y: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ereader-content p {
+  margin-bottom: 1.5em;
+  text-indent: 2em;
+}
+
+.ereader-content p:first-of-type {
+  text-indent: 0;
+}
+
+/* Typography enhancements */
+.ereader-content h1,
+.ereader-content h2,
+.ereader-content h3 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ereader-content h1 { font-size: 2em; }
+.ereader-content h2 { font-size: 1.5em; }
+.ereader-content h3 { font-size: 1.25em; }
+
+/* Selection styles */
+::selection {
+  background: rgba(254, 240, 138, 0.5);
+}
+
+/* Highlight markers */
+.highlight-yellow { background-color: #fef08a; }
+.highlight-green { background-color: #bbf7d0; }
+.highlight-blue { background-color: #bfdbfe; }
+.highlight-pink { background-color: #fbcfe8; }
+
+/* Selection toolbar */
+.selection-toolbar {
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Theme transitions */
+.ereader-container,
+.ereader-header,
+.ereader-sidebar,
+.ereader-content {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar styling */
+.ereader-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ereader-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ereader-content::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+.ereader-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ereader-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    bottom: 0;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .ereader-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .ereader-content {
+    padding: 20px !important;
+  }
+}
+
+/* Dark mode adjustments */
+.dark .ereader-header,
+.dark .ereader-sidebar {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.dark ::selection {
+  background: rgba(254, 240, 138, 0.3);
+}
+
+/* Print styles */
+@media print {
+  .ereader-header,
+  .ereader-sidebar,
+  .selection-toolbar {
+    display: none !important;
+  }
+  
+  .ereader-content {
+    max-width: none;
+    padding: 0 !important;
+  }
+}

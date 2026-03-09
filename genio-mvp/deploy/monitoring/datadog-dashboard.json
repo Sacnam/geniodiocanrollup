@@ -1,0 +1,49 @@
+{
+  "title": "Genio Knowledge OS - Production Dashboard",
+  "description": "Comprehensive monitoring for Genio platform",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "type": "timeseries",
+        "title": "API Response Time (p95)",
+        "requests": [
+          {
+            "q": "avg:genio.api.response_time{p95}",
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "min": 0,
+          "max": 500,
+          "unit": "ms"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "type": "query_value",
+        "title": "Feed Fetch Success Rate",
+        "requests": [
+          {
+            "q": "avg:genio.feeds.fetch_success_rate"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "type": "timeseries",
+        "title": "AI Budget Utilization",
+        "requests": [
+          {
+            "q": "avg:genio.budget.utilization"
+          }
+        ]
+      }
+    }
+  ],
+  "layout_type": "ordered"
+}

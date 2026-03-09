@@ -1,0 +1,16 @@
+# Datadog Alerts for Genio
+alerts:
+  - name: "API High Latency"
+    query: "avg(last_5m):avg:genio.api.response_time > 300"
+    message: "API latency above 300ms"
+    priority: P1
+    
+  - name: "Feed Fetch Failure"
+    query: "avg(last_15m):avg:genio.feeds.fetch_success_rate < 0.95"
+    message: "Feed success rate below 95%"
+    priority: P1
+    
+  - name: "AI Budget Critical"
+    query: "avg(last_1h):avg:genio.budget.utilization > 90"
+    message: "AI budget above 90%"
+    priority: P1

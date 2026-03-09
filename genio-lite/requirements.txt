@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlmodel
+feedparser
+ebooklib
+beautifulsoup4
+python-multipart
+pydantic-settings
